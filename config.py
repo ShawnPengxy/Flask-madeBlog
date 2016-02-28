@@ -9,8 +9,10 @@ class Config:
     MAIL_SERVER = 'smtp.163.com'
     MAIL_PORT = 994
     MAIL_USE_SSL = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+   # MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+   # MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_USERNAME='<registerany@163.com>'
+    MAIL_PASSWORD='Registeranything'
     FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
     FLASKY_MAIL_SENDER = 'Flasky Admin <registerany@163.com>'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
@@ -42,7 +44,7 @@ class ProductionConfig(Config):
         'sqlite:///' + os.path.join(basedir, 'data.sqlite')
     
     @classmethod
-    def init_app(cls,app)
+    def init_app(cls,app):
         Config.init_app(app)
 
         import logging 
@@ -54,7 +56,7 @@ class ProductionConfig(Config):
             if getattr(cls,'MAIL_USE_SSL',None):
                 secure=()
         mail_handler=SMTPHander(
-            mailhost=(cls.MAIL_SERVER,cls.MAIL_PORT)
+            mailhost=(cls.MAIL_SERVER,cls.MAIL_PORT),
             fromaddr=cls.FLASKY_MAIL_SENDER,
             toaddrs=[cls.FLASKY_ADMIN],
             subject=cls.FLASKY_MAIL_SUBJECT_PREFIX+' Application Error',
