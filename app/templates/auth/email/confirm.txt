@@ -1,0 +1,10 @@
+亲爱的 {{ user.username }},
+欢迎来到Flask,请把下面的链接复制到浏览器的地址栏中以完成注册：
+
+{{ url_for('auth.confirm', token=token, _external=True) }}
+
+Sincerely,
+
+Flasky团队
+
+Note: replies to this email address are not monitored.
