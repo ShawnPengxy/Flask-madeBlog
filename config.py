@@ -7,10 +7,10 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_RECORD_QUERIES = True
     MAIL_SERVER = 'smtp.163.com'
-    MAIL_PORT = 994
+    MAIL_PORT = 465
     MAIL_USE_SSL = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'registerany@163.com'
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'Registeranything'
     FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
     FLASKY_MAIL_SENDER = 'Flasky Admin <registerany@163.com>'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
@@ -40,12 +40,12 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-    
+
     @classmethod
     def init_app(cls,app):
         Config.init_app(app)
 
-        import logging 
+        import logging
         from logging.hanlders import SMTPHandler
         credentials=None
         secure=None

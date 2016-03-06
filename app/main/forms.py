@@ -53,7 +53,7 @@ class EditProfileAdminForm(Form):
 
 
 class PostForm(Form):
-    body = PageDownField("你的观点：", validators=[Required()])
+    body = PageDownField('你的观点：', validators=[Required()])
     submit = SubmitField('提交')
 
 
