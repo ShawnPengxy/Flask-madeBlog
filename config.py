@@ -1,6 +1,7 @@
-import os
+import os, sae
 basedir = os.path.abspath(os.path.dirname(__file__))
-
+from sae.const import (MYSQL_HOST, MYSQL_HOST_S, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB)
+SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
@@ -24,22 +25,27 @@ class Config:
         pass
 
 
+
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
+#    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
+ #       'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 
+    SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
+   # SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
+   #     'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
     WTF_CSRF_ENABLED = False
+    SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
+
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+ #   SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+  #      'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+    SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
 
     @classmethod
     def init_app(cls,app):
