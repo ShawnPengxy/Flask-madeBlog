@@ -1,8 +1,12 @@
-import os, sae
-basedir = os.path.abspath(os.path.dirname(__file__))
-from sae.const import (MYSQL_HOST, MYSQL_HOST_S, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB)
-SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
-
+import os#, sae
+#basedir = os.path.abspath(os.path.dirname(__file__))
+#from sae.const import (MYSQL_HOST, MYSQL_HOST_S, MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB)
+#SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
+MYSQL_HOST='localhost'
+MYSQL_USER='root'
+MYSQL_PASS='root'
+MYSQL_PORT=3306
+MYSQL_DB='Dev_DB'
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
@@ -10,8 +14,8 @@ class Config:
     MAIL_SERVER = 'smtp.163.com'
     MAIL_PORT = 465
     MAIL_USE_SSL = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'registerany@163.com'
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'Registeranything'
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
     FLASKY_MAIL_SENDER = 'Flasky Admin <registerany@163.com>'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
@@ -31,21 +35,21 @@ class DevelopmentConfig(Config):
 #    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
  #       'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 
-    SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
 
 class TestingConfig(Config):
     TESTING = True
    # SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
    #     'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
 
 
 
 class ProductionConfig(Config):
  #   SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
   #      'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-    SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@%s:%s/%s' % (MYSQL_USER, MYSQL_PASS,  MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
 
     @classmethod
     def init_app(cls,app):
