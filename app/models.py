@@ -47,6 +47,8 @@ class Role(db.Model):
             db.session.add(role)
         db.session.commit()
 
+
+
     def __repr__(self):
         return '<Role %r>' % self.name
 
@@ -108,6 +110,7 @@ class User(UserMixin, db.Model):
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
+            
 
     @staticmethod
     def add_self_follows():
@@ -116,6 +119,7 @@ class User(UserMixin, db.Model):
                 user.follow(user)
                 db.session.add(user)
                 db.session.commit()
+                
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -170,6 +174,7 @@ class User(UserMixin, db.Model):
             return False
         self.password = new_password
         db.session.add(self)
+
         return True
 
     def generate_email_change_token(self, new_email, expiration=3600):
@@ -193,6 +198,7 @@ class User(UserMixin, db.Model):
         self.avatar_hash = hashlib.md5(
             self.email.encode('utf-8')).hexdigest()
         db.session.add(self)
+
         return True
 
     def can(self, permissions):
@@ -205,6 +211,7 @@ class User(UserMixin, db.Model):
     def ping(self):
         self.last_seen = datetime.utcnow()
         db.session.add(self)
+
 
     def gravatar(self, size=100, default='identicon', rating='g'):
         if request.is_secure:
@@ -220,11 +227,13 @@ class User(UserMixin, db.Model):
         if not self.is_following(user):
             f = Follow(follower=self, followed=user)
             db.session.add(f)
+	    
 
     def unfollow(self, user):
         f = self.followed.filter_by(followed_id=user.id).first()
         if f:
             db.session.delete(f)
+	    #
 
     def is_following(self, user):
         return self.followed.filter_by(
@@ -308,6 +317,7 @@ class Post(db.Model):
                      author=u)
             db.session.add(p)
             db.session.commit()
+	    #
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
